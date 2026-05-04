@@ -1,13 +1,23 @@
 package com.rzanetti.liquid.democracy.topic;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Embeddable
+@Entity
+@Table(name ="topics")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Topic {
-    private String saude;
-    private String educacao;
-    private String seguranca;
-    private String tecnologia;
-    private String meioambiente;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    @Column(nullable = false, unique = true)
+    private String name;
 }
 

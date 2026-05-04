@@ -2,28 +2,44 @@ package com.rzanetti.liquid.democracy.delegation;
 
 import com.rzanetti.liquid.democracy.enums.delegationstatus.DelegationStatus;
 import com.rzanetti.liquid.democracy.topic.Topic;
+import com.rzanetti.liquid.democracy.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-
-@Id
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
 @Table(name = "delegation")
 public class Delegation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private String delegator;
-    private String delegate;
+    @ManyToOne(optional = false)
+    private User delegator;
 
-    @Embedded
+    @ManyToOne(optional = false)
+    private User delegate;
+
+    @ManyToOne(optional = false)
     private Topic topic;
 
     @Enumerated(EnumType.STRING)
-    private DelegationStatus status; //Bolean só se precisar de 3 estados- true false null
+    @Column(nullable = false)
+    private DelegationStatus status;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
     private LocalDateTime revokedAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
 
