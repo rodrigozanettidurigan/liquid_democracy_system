@@ -1,5 +1,7 @@
 package com.rzanetti.liquid.democracy.vote;
 
-public interface VoteRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VoteRepository extends JpaRepository<Vote, Long> {
 }
 

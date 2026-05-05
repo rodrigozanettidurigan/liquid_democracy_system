@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "delegation")
+@Table(name = "delegations")
 public class Delegation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

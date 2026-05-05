@@ -1,5 +1,7 @@
 package com.rzanetti.liquid.democracy.delegation;
 
-public interface DelegationRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DelegationRepository extends JpaRepository<Delegation, Long> {
 }
 

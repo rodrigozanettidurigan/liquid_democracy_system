@@ -15,6 +15,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity(name = "user")
 public class User {
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+    public void update(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

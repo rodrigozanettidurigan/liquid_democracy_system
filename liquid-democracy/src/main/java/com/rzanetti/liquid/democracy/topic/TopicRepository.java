@@ -1,5 +1,7 @@
 package com.rzanetti.liquid.democracy.topic;
 
-public interface TopicRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TopicRepository extends JpaRepository<Topic, Long> {
 }
 
