@@ -1,5 +1,55 @@
 package com.rzanetti.liquid.democracy.topic;
 
-public class TopicController {
-}
+import com.rzanetti.liquid.democracy.topic.dto.CreateTopicRequest;
+import com.rzanetti.liquid.democracy.topic.dto.TopicResponse;
+import com.rzanetti.liquid.democracy.topic.dto.UpdateTopicRequest;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/topics")
+@RequiredArgsConstructor
+public class TopicController {
+    private final TopicService topicService;
+
+    @PostMapping
+    public ResponseEntity<TopicResponse> create(@RequestBody @Valid CreateTopicRequest dto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(topicService.create(dto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TopicResponse>> findAll() {
+        return ResponseEntity.ok(topicService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TopicResponse> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(topicService.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TopicResponse> update(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateTopicRequest dto) {
+        return ResponseEntity.ok(topicService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        topicService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+}

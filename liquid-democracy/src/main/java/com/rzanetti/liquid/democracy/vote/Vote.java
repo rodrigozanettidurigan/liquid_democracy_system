@@ -23,10 +23,12 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)//nao pode ser nulo
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "proposal_id", nullable = false)
     private Proposal proposal;
 
     @Enumerated(EnumType.STRING)
@@ -36,9 +38,14 @@ public class Vote {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    public Vote(User user, Proposal proposal, VoteChoices choice) {
+        this.user = user;
+        this.proposal = proposal;
+        this.choice = choice;
+    }
+
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
     }
 }
-

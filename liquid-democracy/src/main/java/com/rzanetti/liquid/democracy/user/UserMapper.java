@@ -4,7 +4,6 @@ import com.rzanetti.liquid.democracy.user.dto.CreateUserRequest;
 import com.rzanetti.liquid.democracy.user.dto.UserResponse;
 
 public class UserMapper {
-
     private UserMapper() {
     }
 
@@ -16,11 +15,11 @@ public class UserMapper {
         );
     }
 
-    public static UserResponse toResponse(User user)  {
-            return new UserResponse(
-                    user.getId(),
-                    user.getName(),
-                    user.getEmail()
-            );
+    public static UserResponse toResponse(User user) {
+        return new UserResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail()
+        );
     }
 }

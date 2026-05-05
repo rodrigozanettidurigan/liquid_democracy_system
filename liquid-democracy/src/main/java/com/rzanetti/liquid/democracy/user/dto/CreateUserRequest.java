@@ -14,7 +14,7 @@ public record CreateUserRequest(
         String email,
 
         @NotBlank
-        @Size(min = 8)
+        @Size(min = 8, max = 100)
         String password
 ) {
 }

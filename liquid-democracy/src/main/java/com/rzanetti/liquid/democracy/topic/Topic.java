@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name ="topics")
+@Table(name = "topics")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,5 +21,20 @@ public class Topic {
     @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
-}
 
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    public Topic(String name) {
+        this.name = name;
+    }
+
+    public void update(String name) {
+        this.name = name;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+}
